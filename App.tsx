@@ -1,11 +1,26 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { Modal, StyleSheet, Text, Pressable, View, Button } from 'react-native';
 
 export default function App() {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
+      <Pressable onPress={() => setModalVisible(true)}>
+        <Text>Show modal message</Text>
+      </Pressable>
+      <Modal
+        animationType="none"
+        transparent={false}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}>  
+        <View style={styles.container}>
+          <Text>This is modal...</Text>
+          <Pressable onPress={() => setModalVisible(false)}>
+            <Text style={styles.close}>Close</Text>
+          </Pressable>
+        </View>
+      </Modal>
     </View>
   );
 }
@@ -17,4 +32,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  close : {
+    marginTop: 40,
+    fontSize: 18,
+  }
 });
